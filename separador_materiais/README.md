@@ -44,8 +44,11 @@ para ajustes antes de separar.
 
 ```
 separador_materiais/
-├── app.py                 # Interface Streamlit — 3 telas (Projetos/Separação/Consolidado)
-├── persistencia.py        # Armazenamento dos projetos em disco (fonte da verdade)
+├── app.py                 # Interface Streamlit — 4 telas (Projetos/Separação/Consolidado/Concluídos)
+├── persistencia.py        # CRUD dos projetos no PostgreSQL (fonte da verdade)
+├── db.py                  # Conexão e schema do PostgreSQL
+├── docker-compose.yml     # Sobe o PostgreSQL com 1 comando (docker compose up -d)
+├── secrets.toml.example   # Modelo de configuração de conexão (opcional)
 ├── extracao_imagem.py     # Extração de PDF: texto nativo + OCR (fallback)
 ├── extracao_docx.py       # Extração de DOCX (python-docx) e DOC (via Word/COM)
 ├── extracao.py            # Docling: leitura de tabela em texto (último fallback)
@@ -56,27 +59,33 @@ separador_materiais/
 ├── .gitignore
 ├── assets/
 │   └── logo_eletronet.png # Logo usada no PDF (definida pela interface)
-├── dados/
-│   └── projetos/          # 1 JSON por projeto (itens, separação, NF/data) — persistido
 └── tests/
-    └── test_normalizacao.py
+    ├── test_normalizacao.py  # parsing/normalização (não precisa de banco)
+    └── test_db.py            # ciclo real no PostgreSQL (pula se não houver banco)
 ```
 
 ## Telas e persistência
 
-A navegação fica na barra lateral, com **2 telas**:
+A navegação fica na barra lateral, com **4 telas**:
 
-1. **📤 Projetos (subir e conferir)** — envie os arquivos (**PDF, DOCX ou DOC**);
-   a tabela é extraída e **salva em disco**. Os projetos salvos ficam listados
-   aqui (com prévia dos itens) e podem ser excluídos. Reabrir o app mostra tudo
-   de novo, sem reenviar.
+1. **📤 Projetos (subir e conferir)** — informe as **duas pessoas** do projeto
+   (**👤 Projetista** = quem fez o projeto; **🛠️ Responsável pela implantação** =
+   quem dá seguimento) e envie os arquivos (**PDF, DOCX ou DOC**). A tabela é
+   extraída e **salva no banco**. Os projetos ativos ficam listados aqui (com
+   prévia dos itens e as pessoas) e podem ser excluídos.
 2. **📦 Separação** — escolha um projeto e trabalhe numa **tabela totalmente
    editável**: alterar nome/quantidade/tipo, o campo **Serial / Tamanho**
    (nº de série do equipamento ou tamanho do cordão), **criar** (➕) ou
    **remover** itens, marcar `separado` e marcar **⛔ Sem estoque** (itens em
    falta). Por **local (destino)** há os campos **NF de envio** e **Data de
-   envio**. Tudo é **salvo automaticamente**. No fim da tela há o
-   **📊 Consolidado** (todos os projetos, por local e PSC) e os **relatórios PDF**.
+   envio**. Tudo é **salvo automaticamente**. Ao final há o botão
+   **✅ Concluir projeto**, que o **oculta** das telas de trabalho.
+3. **📊 Consolidado** — itens de **todos os projetos**, por local e PSC, com
+   **filtros** por destino, PSC e **status** (**✅ Entregue**, **⏳ Falta entregar**,
+   **⛔ Sem estoque**), métricas, exportação e os **relatórios PDF**. Um item é
+   **entregue** quando está **separado** *e* o destino tem **NF ou data de envio**.
+4. **✅ Concluídos** — projetos concluídos (**só leitura**), com relatórios por
+   projeto e o botão **↩️ Reabrir projeto** (volta para as telas de trabalho).
 
 ### Relatórios em PDF
 
@@ -90,32 +99,69 @@ Por projeto (na Separação) e geral (no Consolidado):
 A **logo da empresa** aparece no cabeçalho: defina-a uma vez no Consolidado em
 *"Logo da empresa (PNG/JPG)"* (fica salva em `assets/logo_eletronet.png`).
 
-> Os dados ficam em `dados/projetos/*.json` (um arquivo por PSC). É o que torna
-> tudo persistente entre sessões. Faça backup dessa pasta se quiser preservar o
-> histórico.
+> Os dados ficam no **PostgreSQL** (tabelas `projetos`, `itens` e `envios`). É o
+> que torna tudo persistente entre sessões — inclusive as **modificações** feitas
+> na Separação. Faça backup do banco (ex.: `pg_dump`) para preservar o histórico.
+
+---
+
+## Banco de dados (PostgreSQL)
+
+Os projetos **e suas modificações** ficam em um PostgreSQL. O app **cria o banco
+e as tabelas sozinho** na primeira execução — você só precisa de um servidor
+acessível.
+
+**Forma mais simples — Docker** (recomendado): na pasta `separador_materiais/`,
+
+```powershell
+docker compose up -d      # sobe o PostgreSQL 16 já com usuário/banco corretos
+```
+
+Os defaults do app batem com o `docker-compose.yml` (`localhost:5432`, usuário
+`postgres`, senha `postgres`, banco `separador_materiais`) — **nada mais a
+configurar**.
+
+**Outro servidor (local nativo, nuvem, etc.):** aponte por variáveis de ambiente
+antes de rodar o app…
+
+```powershell
+$env:DATABASE_URL = "postgresql://usuario:senha@host:5432/separador_materiais"
+# — ou, individualmente —
+$env:PGHOST="localhost"; $env:PGPORT="5432"; $env:PGUSER="postgres"
+$env:PGPASSWORD="senha"; $env:PGDATABASE="separador_materiais"
+```
+
+…ou copie `secrets.toml.example` para `.streamlit/secrets.toml` e ajuste lá.
+
+> Verifique a conexão a qualquer momento com `python tests\test_db.py` (roda um
+> ciclo completo de escrita/leitura e limpa no fim; **pula** se não houver banco).
 
 ---
 
 ## Instalação
 
-Pré-requisito: **Python 3.11+**.
+Pré-requisito: **Python 3.11+** e um **PostgreSQL** (ver seção acima).
 
 > 🐍 **Compatibilidade de versão:** o Docling depende de bibliotecas de ML
 > (PyTorch etc.) cujos *wheels* costumam demorar a ser publicados para versões
 > muito recentes do Python. Se a instalação do `docling` falhar (ex.: em
 > **Python 3.14**), use **Python 3.11 ou 3.12** no ambiente virtual — é a faixa
-> mais estável para esse ecossistema.
+> mais estável para esse ecossistema. (O `psycopg2-binary` já tem wheels para
+> essas versões.)
 
 ```powershell
 # 1) Entrar na pasta do projeto
 cd "separador_materiais"
 
-# 2) (Recomendado) criar e ativar um ambiente virtual
+# 2) Subir o banco (Docker) — ou apontar para um PostgreSQL existente
+docker compose up -d
+
+# 3) (Recomendado) criar e ativar um ambiente virtual
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1      # Windows PowerShell
 # source .venv/bin/activate       # Linux/macOS
 
-# 3) Instalar as dependências
+# 4) Instalar as dependências
 pip install -r requirements.txt
 ```
 
@@ -137,16 +183,19 @@ O Streamlit abre o navegador automaticamente (geralmente em
 
 ### Como usar
 
-1. Na tela **📤 Projetos**, **envie os PDF(s)**. Cada projeto é extraído e
-   **salvo em disco** (aparece na lista de projetos salvos).
+1. Na tela **📤 Projetos**, informe o **👤 Projetista** e o **🛠️ Responsável pela
+   implantação** e **envie os arquivos**. Cada projeto é extraído e **salvo no
+   banco** (aparece na lista de projetos ativos).
 2. Vá para **📦 Separação**, escolha o projeto e trabalhe na **tabela editável**:
    marque `separado`, edite nome/quantidade/tipo, **adicione/remova** itens.
 3. Preencha **NF de envio** e **Data de envio** por **local (destino)**.
 4. Acompanhe os totais/progresso e **exporte** (Excel por local ou CSV).
-5. Use **📊 Consolidado** para ver todos os projetos juntos, por local e PSC.
+5. Use **📊 Consolidado** para ver todos os projetos juntos (com filtros de
+   entregue/falta) e, quando terminar, **✅ Concluir projeto** — ele passa a
+   aparecer só em **✅ Concluídos** (de onde pode ser reaberto).
 
-Tudo é **salvo automaticamente** em `dados/projetos/<PSC>.json` a cada
-alteração e recarregado ao reabrir o app.
+Tudo é **salvo automaticamente** no **PostgreSQL** a cada alteração e
+recarregado ao reabrir o app.
 
 ---
 

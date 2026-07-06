@@ -1,0 +1,17 @@
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Dados salvos localmente (gerados em tempo de execução)
+dados/progresso/*.json
+dados/projetos/*.json
+
+# Modelos baixados / cache do Docling e Streamlit
+.streamlit/
+.cache/

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python --version)",
+      "PowerShell(python -c \"import pandas; print\\('pandas', pandas.__version__\\)\")",
+      "PowerShell(python \"separador_materiais\\\\tests\\\\test_normalizacao.py\")",
+      "PowerShell(python -m py_compile \"separador_materiais\\\\app.py\" \"separador_materiais\\\\extracao.py\" \"separador_materiais\\\\normalizacao.py\")",
+      "PowerShell(if \\($?\\) { \"Sintaxe OK em todos os modulos.\" })",
+      "PowerShell(python -m py_compile \"separador_materiais\\\\app.py\")",
+      "PowerShell(if \\($?\\) { \"Sintaxe OK.\" })",
+      "PowerShell(python -m py_compile \"separador_materiais\\\\extracao.py\")",
+      "PowerShell(& \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" -m pip install --quiet pip-system-certs)",
+      "PowerShell(if \\($?\\) { \"pip-system-certs instalado.\" })",
+      "PowerShell($env:PYTHONIOENCODING='utf-8'; & \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" \"separador_materiais\\\\_proto_ocr.py\")",
+      "PowerShell($py = \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\"; & $py -m py_compile \"separador_materiais\\\\app.py\" \"separador_materiais\\\\extracao.py\" \"separador_materiais\\\\extracao_imagem.py\" \"separador_materiais\\\\normalizacao.py\"; if \\($?\\) { \"Sintaxe OK em todos os modulos.\" })",
+      "PowerShell($env:PYTHONIOENCODING='utf-8'; & \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" \"separador_materiais\\\\_teste_integracao.py\")",
+      "PowerShell($base = \"separador_materiais\"; Remove-Item -Force \"$base\\\\_diagnostico.py\",\"$base\\\\_diag_saida.txt\",\"$base\\\\_proto_ocr.py\",\"$base\\\\_teste_integracao.py\" -ErrorAction SilentlyContinue; \"Temporarios removidos.\"; $env:PYTHONIOENCODING='utf-8'; & \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" \"$base\\\\tests\\\\test_normalizacao.py\")"
+    ]
+  }
+}

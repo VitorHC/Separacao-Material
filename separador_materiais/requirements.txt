@@ -1,0 +1,32 @@
+# Dependências do Separador de Materiais por Local (PSC/PS)
+# Python 3.11+ (recomendado 3.11/3.12 para o ecossistema de ML)
+
+streamlit>=1.30.0     # interface web local
+pandas>=2.0.0         # manipulação dos dados
+openpyxl>=3.1.0       # exportação .xlsx
+fpdf2>=2.7.4          # relatório de envio em PDF (com logo)
+Pillow>=10.0.0        # tratamento da imagem da logo
+
+# Leitura da tabela quando ela vem como IMAGEM no PDF (caso dos PSC/PS):
+easyocr>=1.7.0        # OCR (pt+en); baixa modelos no 1º uso
+pypdfium2>=4.0.0      # renderiza as páginas do PDF para o OCR
+
+# Leitura de DOCX / DOC:
+python-docx>=1.1.0    # tabela de DOCX (não precisa do Word)
+pywin32>=306          # só p/ .DOC (converte via Microsoft Word; Windows + Word)
+
+# Caminho alternativo (tabela em TEXTO): extração via Docling.
+docling>=2.0.0        # opcional; usado como fallback quando não há imagem
+
+# Observação: o easyocr depende de opencv-python-headless. Se o ambiente já
+# tiver opencv-python (completo), instale com:
+#   pip install --no-deps easyocr
+#   pip install scipy scikit-image python-bidi PyYAML Shapely pyclipper ninja
+
+# Opcional (apenas para rodar os testes):
+# pytest>=8.0.0
+
+# Rede corporativa com interceptação de TLS (ex.: Eletronet):
+# faz o Python confiar nos certificados do Windows e permite baixar os
+# modelos do Docling (HuggingFace). Instale se aparecer erro de SSL/download.
+# pip-system-certs>=4.0

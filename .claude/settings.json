@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Stop-Process -Id 3956 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(& \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" -c \"import importlib.metadata as m; [print\\(p, '=', \\(m.version\\(p\\) if importlib.util.find_spec\\(p.replace\\('-','_'\\)\\) or True else ''\\)\\) for p in []]; import importlib; [print\\(name, getattr\\(__import__\\(name\\),'__version__','?'\\)\\) if importlib.util.find_spec\\(name\\) else print\\(name,'FALTA'\\) for name in ['torch','torchvision']]\")",
+      "PowerShell(\"Processo encerrado.\")",
+      "PowerShell($py = \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\"; & $py -m pip install --quiet --no-deps easyocr; if \\($?\\) { & $py -m pip install --quiet scipy scikit-image python-bidi PyYAML Shapely pyclipper ninja; if \\($?\\) { \"Dependencias instaladas.\" } })",
+      "PowerShell(& \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" \"separador_materiais\\\\_proto_ocr.py\")",
+      "PowerShell($env:PYTHONIOENCODING='utf-8'; & \"c:/Users/visantos/OneDrive - Eletronet SA/Documentos/Material/.venv/Scripts/python.exe\" \"separador_materiais\\\\_proto_ocr.py\")"
+    ]
+  }
+}

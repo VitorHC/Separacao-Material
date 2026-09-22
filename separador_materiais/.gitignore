@@ -8,12 +8,9 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
-# Segredos / configuração local do banco
-.streamlit/secrets.toml
-.env
-
-# Dados antigos (versões anteriores usavam JSON; agora é PostgreSQL)
-dados/
+# Dados salvos localmente (gerados em tempo de execução)
+dados/progresso/*.json
+dados/projetos/*.json
 
 # Modelos baixados / cache do Docling e Streamlit
 .streamlit/

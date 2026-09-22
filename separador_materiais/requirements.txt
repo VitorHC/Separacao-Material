@@ -7,9 +7,6 @@ openpyxl>=3.1.0       # exportação .xlsx
 fpdf2>=2.7.4          # relatório de envio em PDF (com logo)
 Pillow>=10.0.0        # tratamento da imagem da logo
 
-# Banco de dados — persistência dos projetos e das modificações em PostgreSQL:
-psycopg2-binary>=2.9.9  # driver PostgreSQL (wheels prontos p/ Python 3.11/3.12)
-
 # Leitura da tabela quando ela vem como IMAGEM no PDF (caso dos PSC/PS):
 easyocr>=1.7.0        # OCR (pt+en); baixa modelos no 1º uso
 pypdfium2>=4.0.0      # renderiza as páginas do PDF para o OCR

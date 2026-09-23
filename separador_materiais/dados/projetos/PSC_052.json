@@ -1,0 +1,252 @@
+{
+  "psc": "PSC 052",
+  "arquivo": "26_PSC 052.26 VPI BRE(SP4-RCE) 100G - Ativação.pdf",
+  "paginas": 7,
+  "metodo": "texto",
+  "criado_em": "2026-06-23T14:22:32",
+  "atualizado_em": "2026-06-24T11:04:14",
+  "itens": [
+    {
+      "separado": false,
+      "sem_estoque": true,
+      "destino": "TAQUARIL",
+      "quantidade": 6,
+      "item": "cordões LC/PC-LC/PC (Verificar o tamanho com a Regional)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": true,
+      "destino": "MATATU",
+      "quantidade": 1,
+      "item": "placa CIENA XLA (NTK552KA)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": true,
+      "destino": "MATATU",
+      "quantidade": 1,
+      "item": "placa CIENA CMD42 (NTT862NA)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": true,
+      "destino": "MATATU",
+      "quantidade": 2,
+      "item": "cordões LC/PC-LC/PC",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": true,
+      "destino": "SP4",
+      "quantidade": 1,
+      "item": "QSFP28 LR4",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "SP4",
+      "quantidade": 2,
+      "item": "cordões LC/PC-LC/PC (Verificar o tamanho com a Regional)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "EUNAPOLIS",
+      "quantidade": 1,
+      "item": "placa NOKIA CHM6",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "EUNAPOLIS",
+      "quantidade": 4,
+      "item": "cordões LC/PC-LC/PC (Verificar o tamanho com a Regional)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "CAMAÇARI",
+      "quantidade": 1,
+      "item": "shelf completo G42 NOKIA INFINERA",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "CAMAÇARI",
+      "quantidade": 1,
+      "item": "placa NOKIA CHM6",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "CAMAÇARI",
+      "quantidade": 1,
+      "item": "SFP elétrico RJ45",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "CAMAÇARI",
+      "quantidade": 4,
+      "item": "cordões LC/PC-LC/PC (Verificar o tamanho com a Regional)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "BONGI",
+      "quantidade": 1,
+      "item": "shelf completo G42 NOKIA INFINERA",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "BONGI",
+      "quantidade": 1,
+      "item": "placa NOKIA CHM6",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "BONGI",
+      "quantidade": 1,
+      "item": "QSFP28 LR4",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "BONGI",
+      "quantidade": 1,
+      "item": "SFP elétrico RJ45",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "BONGI",
+      "quantidade": 2,
+      "item": "cordões LC/PC-LC/PC (Verificar o tamanho com a Regional)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "sem_estoque": false,
+      "destino": "BONGI",
+      "quantidade": 2,
+      "item": "cordões LC/PC-E2000/APC (Verificar o tamanho com a Regional)",
+      "tipo": "",
+      "serial": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova Aquisição"
+    }
+  ],
+  "envios": {
+    "BONGI": {
+      "nf": "5654645",
+      "data_envio": "2026-06-18"
+    },
+    "CAMAÇARI": {
+      "nf": "234234",
+      "data_envio": "2026-06-17"
+    },
+    "EUNAPOLIS": {
+      "nf": "432432",
+      "data_envio": "2026-06-10"
+    },
+    "MATATU": {
+      "nf": "",
+      "data_envio": ""
+    },
+    "SP4": {
+      "nf": "",
+      "data_envio": ""
+    },
+    "TAQUARIL": {
+      "nf": "",
+      "data_envio": ""
+    }
+  }
+}

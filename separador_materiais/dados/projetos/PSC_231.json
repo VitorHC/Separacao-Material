@@ -1,0 +1,74 @@
+{
+  "psc": "PSC 231",
+  "arquivo": "PSC 231-26 - Avançar (AEC) - SPO-PSO - (30G~40G) + GJ PIX - Upgrade.pdf",
+  "paginas": 5,
+  "metodo": "texto",
+  "criado_em": "2026-06-23T14:22:21",
+  "atualizado_em": "2026-06-24T10:18:52",
+  "itens": [
+    {
+      "separado": false,
+      "destino": "GRANJA JULIETA",
+      "quantidade": 2,
+      "item": "cordões ópticos monofibra LC/PC- E2000/APC (Verificar com a regional)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 2,
+      "item": "cordões ópticos monofibra LC/PC- LC/APC (Verificar com a regional)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "PASSOS",
+      "quantidade": 1,
+      "item": "Transponder Terminal PADTEC T100DCT-4GTMYL#2237",
+      "tipo": "",
+      "origem": "FURNAS",
+      "responsavel": "Regional",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PASSOS",
+      "quantidade": 2,
+      "item": "cordões ópticos monofibra LC/APC- LC/PC (Verificar com a regional)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "PASSOS",
+      "quantidade": 2,
+      "item": "cordões ópticos monofibra LC/PC- E2000/APC (Verificar com a regional)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Nova aquisição"
+    }
+  ],
+  "envios": {
+    "FURNAS": {
+      "nf": "",
+      "data_envio": ""
+    },
+    "GRANJA JULIETA": {
+      "nf": "",
+      "data_envio": ""
+    },
+    "PASSOS": {
+      "nf": "",
+      "data_envio": ""
+    }
+  }
+}

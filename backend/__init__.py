@@ -1,1 +1,1 @@
-"""Backend independente da interface Streamlit."""
+"""API do sistema de separação de materiais."""

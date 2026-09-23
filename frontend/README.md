@@ -23,8 +23,9 @@ http://localhost:8080 e encaminha `/api` ao backend. Não há credenciais de ban
 ## Separação
 
 - **Por projeto:** seleciona PS/PSC, edita materiais e adiciona linhas.
-- **Consolidado por localidade:** busca todos os projetos em `/consolidado?somente_pendentes=false`
-  e os agrupa em blocos de destino. A seleção da aba Por projeto não limita o consolidado.
+- **Consolidado por localidade:** reutiliza os materiais carregados em `/projetos` e os agrupa
+  no navegador, evitando uma segunda transferência dos mesmos dados. A seleção da aba Por
+  projeto não limita o consolidado. A rota `/consolidado` continua disponível para integrações.
 - Busca por material, código, destino ou serial. Filtros por localidade/situação e pendências.
 - Métricas representam linhas de materiais, não a soma de peças; a tabela mostra quantidades.
 - CSV exporta apenas a visualização filtrada, com BOM UTF-8 e proteção de fórmulas.

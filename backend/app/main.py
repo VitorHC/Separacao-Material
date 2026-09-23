@@ -9,7 +9,7 @@ from sqlalchemy import select, text
 from sqlalchemy.exc import IntegrityError, OperationalError
 
 from .db import make_engine, session_factory
-from .models import Item, Localidade, Projeto, Remessa, now
+from .models import Localidade, now
 from .schemas import (CORES, EntregaEntrada, ItemEntrada, NFEntrada, ProjetoEdicao,
                       ProjetoEntrada, RemessaEntrada, StatusItem, ReconciliacaoEntrada)
 from . import services as s
@@ -71,41 +71,43 @@ def create_app(engine=None):
 
     @app.post("/projetos", status_code=201)
     def create_project(data: ProjetoEntrada, db=Depends(session, scope="function")):
-        return s.projeto_saida(db, s.criar_projeto(db, data))
+        projeto = s.criar_projeto(db, data)
+        return s.projetos_saida(db, [s.carregar_projeto(db, projeto.id)])[0]
 
     @app.get("/projetos")
     def projects(db=Depends(session, scope="function")):
-        return [s.projeto_saida(db, p) for p in db.scalars(select(Projeto).order_by(Projeto.codigo))]
+        return s.projetos_saida(db, s.carregar_projetos(db))
 
     @app.get("/projetos/{id}")
     def project(id: str, db=Depends(session, scope="function")):
-        return s.projeto_saida(db, s.obter(db, Projeto, id))
+        return s.projetos_saida(db, [s.carregar_projeto(db, id)])[0]
 
     @app.patch("/projetos/{id}")
     def edit_project(id: str, data: ProjetoEdicao, db=Depends(session, scope="function")):
-        p = s.obter(db, Projeto, id, lock=True)
+        p = s.carregar_projeto(db, id, lock=True)
         p.projetista = data.projetista
         p.responsavel_implantacao = data.responsavel_implantacao
         db.flush()
-        return s.projeto_saida(db, p)
+        return s.projetos_saida(db, [p])[0]
 
     @app.post("/projetos/{id}/itens", status_code=201)
     def add_item(id: str, data: ItemEntrada, db=Depends(session, scope="function")):
-        p = s.obter(db, Projeto, id, lock=True)
+        p = s.carregar_projeto(db, id, lock=True)
         i = s.criar_item(db, p, data, len(p.itens))
-        return s.item_saida(i, s.quantidades(db))
+        return s.item_saida(i, s.quantidades(db, [i.id]), p.codigo)
 
     @app.put("/itens/{id}")
     def edit_item(id: str, data: ItemEntrada, db=Depends(session, scope="function")):
-        return s.item_saida(s.editar_item(db, id, data), s.quantidades(db))
+        item = s.editar_item(db, id, data)
+        return s.item_saida(item, s.quantidades(db, [item.id]))
 
     @app.post("/itens/{id}/conferir")
     def review_item(id: str, db=Depends(session, scope="function")):
-        i = s.obter(db, Item, id, lock=True)
+        i = s.carregar_item(db, id, lock=True)
         if not i.localidade_id or not i.descricao.strip() or i.quantidade is None:
             raise HTTPException(409, "Corrija destino, descrição e quantidade antes de confirmar.")
         i.revisao = ""
-        return s.item_saida(i, s.quantidades(db))
+        return s.item_saida(i, s.quantidades(db, [i.id]))
 
     @app.get("/localidades")
     def locations(db=Depends(session, scope="function")):
@@ -118,22 +120,20 @@ def create_app(engine=None):
 
     @app.post("/remessas", status_code=201)
     def create_shipment(data: RemessaEntrada, db=Depends(session, scope="function")):
-        return s.remessa_saida(s.criar_remessa(db, data))
+        remessa = s.criar_remessa(db, data)
+        return s.remessa_saida(s.carregar_remessa(db, remessa.id))
 
     @app.get("/remessas")
     def shipments(localidade_id: str | None = None, db=Depends(session, scope="function")):
-        query = select(Remessa).order_by(Remessa.criado_em.desc())
-        if localidade_id:
-            query = query.where(Remessa.localidade_id == localidade_id)
-        return [s.remessa_saida(r) for r in db.scalars(query)]
+        return [s.remessa_saida(r) for r in s.carregar_remessas(db, localidade_id)]
 
     @app.get("/remessas/{id}")
     def shipment(id: str, db=Depends(session, scope="function")):
-        return s.remessa_saida(s.obter(db, Remessa, id))
+        return s.remessa_saida(s.carregar_remessa(db, id))
 
     @app.post("/remessas/{id}/solicitar-nf")
     def request_nf(id: str, db=Depends(session, scope="function")):
-        r = s.obter(db, Remessa, id, lock=True)
+        r = s.carregar_remessa(db, id, lock=True)
         if r.status not in ("rascunho", "nf_solicitada"):
             raise HTTPException(409, "NF só pode ser solicitada para um rascunho.")
         r.status = "nf_solicitada"
@@ -142,7 +142,7 @@ def create_app(engine=None):
 
     @app.put("/remessas/{id}/nf")
     def invoice(id: str, data: NFEntrada, db=Depends(session, scope="function")):
-        r = s.obter(db, Remessa, id, lock=True)
+        r = s.carregar_remessa(db, id, lock=True)
         if r.status not in ("rascunho", "nf_solicitada", "nf_registrada"):
             raise HTTPException(409, "Esta remessa não permite alteração da NF.")
         r.nf, r.status = data.nf, "nf_registrada"
@@ -150,7 +150,7 @@ def create_app(engine=None):
 
     @app.post("/remessas/{id}/entregar-logistica")
     def deliver(id: str, data: EntregaEntrada, db=Depends(session, scope="function")):
-        r = s.obter(db, Remessa, id, lock=True)
+        r = s.carregar_remessa(db, id, lock=True)
         if r.status != "nf_registrada" or not r.nf:
             raise HTTPException(409, "Registre a NF antes de entregar à logística.")
         if data.data_entrega_logistica > date.today():
@@ -163,11 +163,12 @@ def create_app(engine=None):
     def reconcile(id: str, data: ReconciliacaoEntrada, db=Depends(session, scope="function")):
         if data.data_entrega_logistica and data.data_entrega_logistica > date.today():
             raise HTTPException(422, "A entrega à logística não pode ter data futura.")
-        return s.remessa_saida(s.reconciliar_legado(db, id, data))
+        remessa = s.reconciliar_legado(db, id, data)
+        return s.remessa_saida(s.carregar_remessa(db, remessa.id))
 
     @app.post("/remessas/{id}/cancelar")
     def cancel(id: str, db=Depends(session, scope="function")):
-        r = s.obter(db, Remessa, id, lock=True)
+        r = s.carregar_remessa(db, id, lock=True)
         if r.status in ("entregue_logistica", "legado_revisar"):
             raise HTTPException(409, "Histórico de envio não pode ser cancelado por esta operação.")
         r.status = "cancelada"

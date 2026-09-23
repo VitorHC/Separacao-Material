@@ -1,0 +1,2 @@
+# Fallback opcional para PDFs complexos. Instale apenas quando necessário.
+docling>=2,<3

@@ -10,15 +10,11 @@ ou diretamente (sem pytest instalado):
     python tests/test_normalizacao.py
 """
 
-import os
 import sys
 
 import pandas as pd
 
-# Permite importar os módulos da raiz do projeto ao rodar via pytest ou direto.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from normalizacao import normalizar_tabela, separar_quantidade  # noqa: E402
+from backend.app.extraction.normalization import normalizar_tabela, separar_quantidade
 
 
 def test_separar_quantidade_casos_basicos():

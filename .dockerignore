@@ -3,7 +3,7 @@
 **/__pycache__
 **/.pytest_cache
 .env
-separador_materiais/dados
+dados-legados
 frontend/node_modules
 frontend/dist
 frontend/test-results

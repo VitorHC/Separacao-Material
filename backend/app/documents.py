@@ -1,15 +1,10 @@
-"""Adaptador dos extratores existentes para conferência na interface React."""
+"""Extração de documentos para conferência na interface React."""
 import base64
 from functools import lru_cache
 from pathlib import Path
-import sys
 from threading import Lock
 
 from fastapi import HTTPException
-
-LEGACY = Path(__file__).resolve().parents[2] / "separador_materiais"
-if str(LEGACY) not in sys.path:
-    sys.path.insert(0, str(LEGACY))
 
 # Os leitores de OCR são compartilhados por processo e usados sem concorrência.
 _extraction_lock = Lock()
@@ -17,22 +12,25 @@ _extraction_lock = Lock()
 
 @lru_cache(maxsize=1)
 def ocr_reader():
-    from extracao_imagem import criar_leitor
+    from .extraction.pdf import criar_leitor
+
     return criar_leitor()
 
 
 @lru_cache(maxsize=1)
 def docling_reader():
-    from extracao import criar_conversor
+    from .extraction.docling import criar_conversor
+
     return criar_conversor()
 
 
 def extrair_documento(nome: str, conteudo: bytes):
-    from extracao import ErroExtracao, _extrair_numero_psc, extrair
-    from extracao_docx import extrair_tabela_doc, extrair_tabela_docx
-    from extracao_imagem import extrair_tabela_imagem, extrair_tabela_texto
-    from normalizacao import normalizar_tabela
     import pandas as pd
+
+    from .extraction.docling import ErroExtracao, _extrair_numero_psc, extrair
+    from .extraction.normalization import normalizar_tabela
+    from .extraction.pdf import extrair_tabela_imagem, extrair_tabela_texto
+    from .extraction.word import extrair_tabela_doc, extrair_tabela_docx
 
     ext = Path(nome).suffix.lower()
     if ext not in (".pdf", ".docx", ".doc"):

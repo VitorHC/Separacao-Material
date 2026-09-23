@@ -1,4 +1,4 @@
-import type { Extraction, Group, Project, Shipment } from './types'
+import type { Extraction, Project, Shipment } from './types'
 export async function request<T>(path: string, method = 'GET', body?: unknown, signal?: AbortSignal): Promise<T> {
   let response: Response
   try {
@@ -18,7 +18,6 @@ export async function request<T>(path: string, method = 'GET', body?: unknown, s
 }
 export const api = {
   projects: (signal?: AbortSignal) => request<Project[]>('/projetos', 'GET', undefined, signal),
-  groups: (signal?: AbortSignal) => request<Group[]>('/consolidado?somente_pendentes=false', 'GET', undefined, signal),
   shipments: (signal?: AbortSignal) => request<Shipment[]>('/remessas', 'GET', undefined, signal),
   extract: (file: File) => { const body = new FormData(); body.append('arquivo', file); return request<Extraction>('/documentos/extrair', 'POST', body) },
 }

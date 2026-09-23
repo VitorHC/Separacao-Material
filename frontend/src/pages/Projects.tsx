@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { ArrowUpRight, FileText, LoaderCircle, Pencil, Plus, Search, Trash2, Upload } from 'lucide-react'
 import { api, request } from '../api'
 import { emptyItem, type DraftItem, type Extraction, type Project } from '../types'
 import { AsyncForm, Empty, ErrorBox, Modal } from '../components/UI'
 export function Projects({ projects, reload, notify, openProject }: { projects: Project[]; reload: () => Promise<void>; notify: (s: string) => void; openProject: (id: string) => void }) {
   const [create, setCreate] = useState(false), [editing, setEditing] = useState<Project | null>(null), [search, setSearch] = useState('')
-  const filtered = projects.filter(p => `${p.codigo} ${p.arquivo} ${p.responsavel_implantacao}`.toLowerCase().includes(search.toLowerCase()))
+  const filtered = useMemo(() => {
+    const term = search.trim().toLowerCase()
+    return projects.filter(p => `${p.codigo} ${p.arquivo} ${p.responsavel_implantacao}`.toLowerCase().includes(term))
+  }, [projects, search])
   return <><div className="page-heading"><div><div className="eyebrow">PROJETOS • PS / PSC</div><h1>Projetos</h1><p>Importe a lista de materiais e acompanhe os projetos de implantação.</p></div><button className="button primary" onClick={() => setCreate(true)}><Plus size={17}/>Novo projeto</button></div>
     <div className="project-toolbar"><div className="input-icon"><Search size={18}/><input aria-label="Buscar projetos" placeholder="Buscar PS/PSC, arquivo ou responsável…" value={search} onChange={e => setSearch(e.target.value)}/></div><span>{filtered.length} projetos</span></div>
     {!filtered.length ? <section className="panel"><Empty title="Nenhum projeto encontrado">Use Novo projeto para importar um documento ou cadastrar os materiais.</Empty></section> : <div className="project-grid">{filtered.map(p => { const separated = p.itens.filter(i => i.status === 'separado').length; return <article className="project-card" key={p.id}><div className="project-card-top"><span className="file-icon"><FileText size={22}/></span><button className="icon-button" aria-label={`Editar responsáveis de ${p.codigo}`} onClick={() => setEditing(p)}><Pencil size={16}/></button></div><h2>{p.codigo}</h2><p className="file-name" title={p.arquivo}>{p.arquivo || 'Cadastro manual'}</p><div className="project-facts"><span><strong>{p.itens.length}</strong> materiais</span><span><strong>{new Set(p.itens.map(i => i.localidade_id).filter(Boolean)).size}</strong> localidades</span></div><div className="progress-label"><span>Separação</span><strong>{separated}/{p.itens.length}</strong></div><progress value={separated} max={p.itens.length || 1}/><div className="person"><span>Responsável pela implantação</span><strong>{p.responsavel_implantacao || 'Não informado'}</strong></div><button className="card-link" onClick={() => openProject(p.id)}>Separar materiais<ArrowUpRight size={18}/></button></article> })}</div>}

@@ -1,6 +1,6 @@
 """
-extracao.py
-===========
+Extração com Docling
+====================
 
 Camada de extração: lê o PDF do PSC/PS com **Docling**, percorre todas as
 tabelas do documento e seleciona apenas a tabela "Logística de Materiais"
@@ -9,7 +9,7 @@ tabelas do documento e seleciona apenas a tabela "Logística de Materiais"
 Como a tabela pode se estender por várias páginas, todos os fragmentos que
 casam com a assinatura são concatenados.
 
-Não depende de Streamlit. O import do Docling é feito de forma preguiçosa
+Não depende da interface web. O import do Docling é feito de forma preguiçosa
 (dentro de :func:`criar_conversor`) para que a importação deste módulo seja
 leve e para isolar o download inicial dos modelos.
 """
@@ -24,7 +24,7 @@ from typing import Optional
 
 import pandas as pd
 
-from normalizacao import CABECALHO_ESPERADO, normalizar_texto
+from .normalization import CABECALHO_ESPERADO, normalizar_texto
 
 
 class ErroExtracao(Exception):
@@ -188,7 +188,7 @@ def extrair(conteudo: bytes, nome_arquivo: str, conversor) -> ResultadoExtracao:
     Parameters
     ----------
     conteudo:
-        Bytes do PDF (vindos do upload do Streamlit).
+        Bytes do PDF recebidos pela API.
     nome_arquivo:
         Nome original do arquivo (usado para preservar a extensão no temp).
     conversor:

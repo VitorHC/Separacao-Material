@@ -1,6 +1,6 @@
 """
-extracao_imagem.py
-==================
+Extração de PDF
+===============
 
 Extração da tabela "Lista de equipamentos / Material utilizado" dos PSC/PS.
 
@@ -18,7 +18,7 @@ Dois caminhos, do mais rápido/preciso ao mais robusto:
    da tabela. Fallback para PDFs escaneados / tabela realmente em imagem.
 
 Ambos devolvem um DataFrame com as colunas do cabeçalho esperado, pronto para
-``normalizacao.normalizar_tabela``.
+``normalization.normalizar_tabela``.
 """
 
 from __future__ import annotations
@@ -32,8 +32,8 @@ import pandas as pd
 import pypdfium2 as pdfium
 from PIL import Image
 
-from extracao import ErroExtracao, ResultadoExtracao
-from normalizacao import CABECALHO_ESPERADO, normalizar_texto
+from .docling import ErroExtracao, ResultadoExtracao
+from .normalization import CABECALHO_ESPERADO, normalizar_texto
 
 # Campos do cabeçalho em forma normalizada e mapa de volta para o nome original.
 _ORIG_POR_NORM = {normalizar_texto(c): c for c in CABECALHO_ESPERADO}

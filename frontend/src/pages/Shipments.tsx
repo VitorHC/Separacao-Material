@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { CalendarDays, FileCheck2, FileText, Search, Truck } from 'lucide-react'
 import { request } from '../api'
 import { localDate, shipmentLabels, type Shipment } from '../types'
 import { AsyncForm, Empty, Modal } from '../components/UI'
 export function Shipments({ shipments, reload, notify }: {shipments: Shipment[]; reload: () => Promise<void>; notify: (text: string) => void}) {
   const [search, setSearch] = useState(''), [status, setStatus] = useState(''), [action, setAction] = useState<{ r: Shipment; mode: 'nf' | 'date' | 'request' | 'cancel' } | null>(null)
-  const filtered = shipments.filter(r => (!status || r.status === status) && `${r.destino} ${r.nf} ${r.itens.map(i => i.codigo_projeto).join(' ')}`.toLowerCase().includes(search.toLowerCase()))
+  const filtered = useMemo(() => {
+    const term = search.trim().toLowerCase()
+    return shipments.filter(r => (!status || r.status === status) && `${r.destino} ${r.nf} ${r.itens.map(i => i.codigo_projeto).join(' ')}`.toLowerCase().includes(term))
+  }, [search, shipments, status])
   return <><div className="page-heading"><div><div className="eyebrow">EXPEDIÇÃO • CONTROLE DE ENVIO</div><h1>Remessas e notas fiscais</h1><p>Uma remessa, vários projetos. Acompanhe a NF e a entrega à logística.</p></div></div><div className="shipment-toolbar"><div className="input-icon"><Search size={17}/><input aria-label="Buscar remessas" placeholder="Localidade, NF ou PS/PSC…" value={search} onChange={e => setSearch(e.target.value)}/></div><select aria-label="Situação da remessa" value={status} onChange={e => setStatus(e.target.value)}><option value="">Todas as situações</option>{Object.entries(shipmentLabels).map(([k,l]) => <option key={k} value={k}>{l}</option>)}</select></div>
     {!filtered.length ? <section className="panel"><Empty title="Nenhuma remessa encontrada">Na Separação, selecione os materiais de um destino e clique em Criar remessa.</Empty></section> : <div className="shipment-list">{filtered.map(r => <article className="panel shipment-card" key={r.id}><header><div className="destination-icon"><Truck size={21}/></div><div><h2>{r.destino}</h2><p>{r.itens.length} materiais · {new Set(r.itens.map(i => i.codigo_projeto)).size} projetos · saída: {r.origem_expedicao === 'LOCAL' ? 'Estoque local' : r.origem_expedicao}</p></div><span className={`shipment-status ${r.status}`}>{shipmentLabels[r.status]}</span></header><div className="shipment-meta"><span><FileText size={17}/>NF <strong>{r.nf || 'Não registrada'}</strong></span><span><CalendarDays size={17}/>Entrega à logística <strong>{r.data_entrega_logistica ? r.data_entrega_logistica.split('-').reverse().join('/') : 'Não registrada'}</strong></span></div>
       {r.status === 'legado_revisar' && <p className="notice">Envio importado do controle antigo. As quantidades precisam ser conferidas antes de contabilizar este envio. O histórico original foi preservado.</p>}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ArrowRight, Download, Layers3, ListFilter, MapPin, Package, Pencil, Plus, Search, Truck, X } from 'lucide-react'
 import { request } from '../api'
 import { exportItems } from '../export'
@@ -11,12 +11,22 @@ export function Separation({ initialProjectId = '', projects, groups, reload, no
   const [tab, setTab] = useState<'project' | 'consolidated'>('project')
   const [projectId, setProjectId] = useState(initialProjectId), [location, setLocation] = useState(''), [status, setStatus] = useState(''), [search, setSearch] = useState(''), [pending, setPending] = useState(false)
   const [selected, setSelected] = useState<string[]>([]), [editing, setEditing] = useState<Item | 'new' | null>(null), [shipmentOpen, setShipmentOpen] = useState(false)
-  const activeProject = projects.find(p => p.id === projectId) ?? projects[0]
-  const all = groups.flatMap(g => g.itens)
-  const selection = all.filter(i => selected.includes(i.id))
+  const activeProject = useMemo(() => projects.find(p => p.id === projectId) ?? projects[0], [projectId, projects])
+  const all = useMemo(() => groups.flatMap(g => g.itens), [groups])
+  const selectedIds = useMemo(() => new Set(selected), [selected])
+  const selection = useMemo(() => all.filter(i => selectedIds.has(i.id)), [all, selectedIds])
   const first = selection[0]
-  const filtered = groups.map(g => ({ ...g, itens: g.itens.filter(i => (tab === 'consolidated' || i.projeto_id === activeProject?.id) && (!location || (g.localidade_id ?? 'missing') === location) && (!status || i.status === status) && (!pending || i.quantidade_pendente !== 0) && `${i.descricao} ${i.codigo_projeto} ${i.destino} ${i.serial}`.toLowerCase().includes(search.toLowerCase())) })).filter(g => g.itens.length)
-  const visible = filtered.flatMap(g => g.itens)
+  const filtered = useMemo(() => {
+    const term = search.trim().toLowerCase()
+    return groups.map(g => ({ ...g, itens: g.itens.filter(i =>
+      (tab === 'consolidated' || i.projeto_id === activeProject?.id)
+      && (!location || (g.localidade_id ?? 'missing') === location)
+      && (!status || i.status === status)
+      && (!pending || i.quantidade_pendente !== 0)
+      && (!term || `${i.descricao} ${i.codigo_projeto} ${i.destino} ${i.serial}`.toLowerCase().includes(term)))
+    })).filter(g => g.itens.length)
+  }, [activeProject?.id, groups, location, pending, search, status, tab])
+  const visible = useMemo(() => filtered.flatMap(g => g.itens), [filtered])
   function filter(action: () => void) { action(); setSelected([]) }
   function selectable(i: Item) { return !!expedition(i) && (!first || (i.localidade_id === first.localidade_id && expedition(i) === expedition(first))) }
   function toggle(i: Item, checked: boolean) { if (!checked) setSelected(v => v.filter(id => id !== i.id)); else if (selectable(i)) setSelected(v => [...v, i.id]) }
@@ -40,7 +50,7 @@ export function Separation({ initialProjectId = '', projects, groups, reload, no
         {!filtered.length ? <Empty title={projects.length ? 'Nenhum material para estes filtros' : 'Seus materiais aparecerão aqui'}>{projects.length ? 'Ajuste os filtros ou adicione materiais ao projeto.' : 'Cadastre ou importe um projeto para começar a separação.'}</Empty> : <div className="location-groups">{filtered.map(g => {
           const allowed = g.itens.filter(i => selectable(i) && (first || expedition(i) === 'LOCAL'))
           return <details open className="location-group" key={g.localidade_id ?? 'missing'}><summary><div className="destination-icon"><MapPin size={20}/></div><div className="destination-name"><h3>{g.destino || 'Sem localidade'}</h3><span>{new Set(g.itens.map(i => i.projeto_id)).size} projetos · {g.itens.length} materiais</span></div><span className="location-progress">{g.itens.filter(i => i.status === 'separado').length} separados</span><span className="chevron">⌄</span></summary>
-            <div className="table-scroll"><table className="materials-table"><thead><tr><th className="check-cell"><input type="checkbox" aria-label={`Selecionar disponíveis de ${g.destino}`} disabled={!allowed.length} checked={!!allowed.length && allowed.every(i => selected.includes(i.id))} onChange={e => setSelected(v => e.target.checked ? [...new Set([...v, ...allowed.map(i => i.id)])] : v.filter(id => !g.itens.some(i => i.id === id)))}/></th><th>Projeto</th><th>Material</th><th className="number">Necessário</th><th className="number">Pendente</th><th>Situação</th><th>Origem de envio</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{g.itens.map(i => <tr key={i.id} className={selected.includes(i.id) ? 'selected-row' : ''}><td className="check-cell"><input type="checkbox" aria-label={`Selecionar ${i.codigo_projeto} ${i.descricao}`} disabled={!selectable(i)} checked={selected.includes(i.id)} onChange={e => toggle(i, e.target.checked)}/></td><td><span className="project-tag">{i.codigo_projeto}</span></td><td className="material-name"><strong>{i.descricao || 'Descrição pendente'}</strong>{i.serial && <small>{i.serial}</small>}{i.revisao && <small className="review-text" title={i.revisao}>Conferência pendente</small>}{i.quantidade_reservada > 0 && <small>{i.quantidade_reservada} em remessa</small>}</td><td className="number">{i.quantidade ?? '—'}</td><td className="number">{i.quantidade_pendente ?? '—'}</td><td><StatusBadge status={i.status}/></td><td className="muted">{i.status === 'outro_local' ? (i.local_origem || 'Informar origem') : 'Estoque local'}</td><td><button className="icon-button" aria-label={`Editar ${i.codigo_projeto} ${i.descricao}`} onClick={() => setEditing(i)}><Pencil size={15}/></button></td></tr>)}</tbody></table></div>
+            <div className="table-scroll"><table className="materials-table"><thead><tr><th className="check-cell"><input type="checkbox" aria-label={`Selecionar disponíveis de ${g.destino}`} disabled={!allowed.length} checked={!!allowed.length && allowed.every(i => selectedIds.has(i.id))} onChange={e => setSelected(v => e.target.checked ? [...new Set([...v, ...allowed.map(i => i.id)])] : v.filter(id => !g.itens.some(i => i.id === id)))}/></th><th>Projeto</th><th>Material</th><th className="number">Necessário</th><th className="number">Pendente</th><th>Situação</th><th>Origem de envio</th><th><span className="sr-only">Ações</span></th></tr></thead><tbody>{g.itens.map(i => <tr key={i.id} className={selectedIds.has(i.id) ? 'selected-row' : ''}><td className="check-cell"><input type="checkbox" aria-label={`Selecionar ${i.codigo_projeto} ${i.descricao}`} disabled={!selectable(i)} checked={selectedIds.has(i.id)} onChange={e => toggle(i, e.target.checked)}/></td><td><span className="project-tag">{i.codigo_projeto}</span></td><td className="material-name"><strong>{i.descricao || 'Descrição pendente'}</strong>{i.serial && <small>{i.serial}</small>}{i.revisao && <small className="review-text" title={i.revisao}>Conferência pendente</small>}{i.quantidade_reservada > 0 && <small>{i.quantidade_reservada} em remessa</small>}</td><td className="number">{i.quantidade ?? '—'}</td><td className="number">{i.quantidade_pendente ?? '—'}</td><td><StatusBadge status={i.status}/></td><td className="muted">{i.status === 'outro_local' ? (i.local_origem || 'Informar origem') : 'Estoque local'}</td><td><button className="icon-button" aria-label={`Editar ${i.codigo_projeto} ${i.descricao}`} onClick={() => setEditing(i)}><Pencil size={15}/></button></td></tr>)}</tbody></table></div>
           </details>
         })}</div>}
         <div className="legend">{(Object.keys(statusLabels) as Status[]).map(s => <StatusBadge status={s} key={s}/>)}</div>

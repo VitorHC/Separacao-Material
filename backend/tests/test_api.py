@@ -3,6 +3,7 @@ from datetime import date, timedelta
 
 import pytest
 from fastapi import HTTPException
+from sqlalchemy import event
 
 from backend.app.models import Item
 from backend.app.schemas import ProjetoEntrada, RemessaEntrada
@@ -108,6 +109,26 @@ def test_filtros_consolidado(client):
     assert len(r) == 1 and r[0]["itens"][0]["codigo_projeto"] == "PS 100"
     r = client.get("/consolidado", params={"status": "sem_estoque"}).json()
     assert len(r) == 1 and r[0]["destino"] == "SITE B"
+
+
+def test_listagem_de_projetos_tem_consultas_limitadas(client, engine):
+    """A quantidade de consultas não cresce com o número de projetos."""
+    project(client)
+    project(client, "PS 101", "SITE B")
+    statements = []
+
+    def count_queries(*_args):
+        statements.append(1)
+
+    event.listen(engine, "before_cursor_execute", count_queries)
+    try:
+        response = client.get("/projetos")
+    finally:
+        event.remove(engine, "before_cursor_execute", count_queries)
+
+    assert response.status_code == 200
+    assert len(response.json()) == 2
+    assert len(statements) <= 4
 
 
 def test_rejeita_duplicata_de_item_na_remessa(client):

@@ -20,6 +20,7 @@ services:
       dockerfile: backend/Dockerfile
       args:
         INSTALL_OCR: ${INSTALL_OCR:-true}
+        INSTALL_DOCLING: ${INSTALL_DOCLING:-false}
     environment:
       PGHOST: db
       PGPORT: 5432
@@ -33,7 +34,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./separador_materiais/dados/projetos:/legacy:ro
+      - ./dados-legados:/legacy:ro
     command: ["sh", "-c", "alembic -c backend/alembic.ini upgrade head && uvicorn backend.app.main:app --host 0.0.0.0 --port 8000"]
   web:
     build:

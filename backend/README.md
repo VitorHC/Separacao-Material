@@ -5,12 +5,13 @@ Documentação interativa em `/docs` e contrato OpenAPI em `/openapi.json`.
 `POST /documentos/extrair` recebe PDF/DOCX/DOC de até 30 MB e devolve uma prévia para
 conferência, preservando também linhas incompletas. A leitura não grava projetos;
 a interface só confirma a importação após o usuário conferir e preencher campos obrigatórios.
-Os extratores originais são reutilizados; suas heurísticas de localização/reconstrução
+Os extratores ficam em `backend/app/extraction`; suas heurísticas de localização/reconstrução
 continuam exigindo conferência do documento real, especialmente em tabelas multipágina.
 
 PDF nativo e DOCX usam as dependências básicas. Para tabelas em imagens, instale também
-`pip install -r backend/requirements-ocr.txt`. Docker habilita OCR por padrão; o primeiro uso
-baixa os modelos. DOC antigo exige Windows e Microsoft Word instalado, portanto não é
+`pip install -r backend/requirements-ocr.txt`. Docker habilita EasyOCR por padrão; o primeiro uso
+baixa os modelos. O fallback Docling é opcional (`backend/requirements-docling.txt` ou
+`INSTALL_DOCLING=true`). DOC antigo exige Windows e Microsoft Word instalado, portanto não é
 suportado no contêiner Linux: converta para DOCX ou PDF nesse caso.
 
 ## Regras implementadas
@@ -75,9 +76,8 @@ Não existe migração automática das tabelas daquela branch: o migrador desta 
 
 ## Migrar os JSON existentes
 
-Pare as edições no Streamlit durante a transição e faça uma cópia da pasta
-`separador_materiais/dados/projetos`. O migrador nunca exclui nem modifica seus arquivos.
-O diretório está montado como somente leitura em `/legacy` no contêiner.
+Coloque uma cópia dos JSON antigos em `dados-legados/`. O migrador nunca exclui nem modifica
+esses arquivos; o diretório é montado como somente leitura em `/legacy` no contêiner.
 
 Primeiro simule:
 
@@ -94,8 +94,8 @@ docker compose exec api python -m backend.app.migrate_json /legacy --apply
 Sem Docker (com a conexão configurada):
 
 ```powershell
-python -m backend.app.migrate_json separador_materiais/dados/projetos
-python -m backend.app.migrate_json separador_materiais/dados/projetos --apply
+python -m backend.app.migrate_json dados-legados
+python -m backend.app.migrate_json dados-legados --apply
 ```
 
 O resultado inclui projetos, quantidade de linhas, registros legados e avisos.
@@ -184,9 +184,8 @@ pytest backend/tests -q
 Sem configuração extra, os testes rápidos usam SQLite em memória. Isso não substitui
 PostgreSQL: o teste de concorrência só executa com o banco real.
 
-O workflow `.github/workflows/backend.yml` sobe PostgreSQL 16 e verifica migrações
-upgrade/downgrade, consistência do schema, API, migração JSON e reservas concorrentes.
-Para executar o mesmo teste localmente, defina `TEST_DATABASE_URL` apontando para um banco
+Para incluir PostgreSQL, migrações upgrade/downgrade e reservas concorrentes nos testes,
+defina `TEST_DATABASE_URL` apontando para um banco
 **descartável com nome terminado em `_test`**. Os testes criam e removem tabelas nesse banco.
 
 Não use `docker compose down -v` para parar o aplicativo: essa opção remove os volumes.

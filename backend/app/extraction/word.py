@@ -1,6 +1,6 @@
 """
-extracao_docx.py
-================
+Extração de documentos Word
+===========================
 
 Leitura da tabela "Lista de equipamentos / Material utilizado" de arquivos
 **DOCX** e **DOC**.
@@ -11,7 +11,7 @@ Leitura da tabela "Lista de equipamentos / Material utilizado" de arquivos
   (win32com) e então lido como DOCX. Requer o Word instalado.
 
 A saída é um ``ResultadoExtracao`` com DataFrame nas colunas do cabeçalho
-esperado, pronto para ``normalizacao.normalizar_tabela``.
+esperado, pronto para ``normalization.normalizar_tabela``.
 """
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ from typing import Optional
 
 import pandas as pd
 
-from extracao import ErroExtracao, ResultadoExtracao
-from normalizacao import CABECALHO_ESPERADO, normalizar_texto
+from .docling import ErroExtracao, ResultadoExtracao
+from .normalization import CABECALHO_ESPERADO, normalizar_texto
 
 _CAMPOS = {normalizar_texto(c) for c in CABECALHO_ESPERADO}
 _ORIG_POR_NORM = {normalizar_texto(c): c for c in CABECALHO_ESPERADO}

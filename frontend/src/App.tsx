@@ -8,6 +8,20 @@ import { Separation } from './pages/Separation'
 import { Shipments } from './pages/Shipments'
 type Page = 'projects' | 'separation' | 'shipments'
 const labels = { projects: 'Projetos', separation: 'Separação', shipments: 'Remessas e NFs' }
+
+function groupProjects(projects: Project[]): Group[] {
+  const groups = new Map<string, Group>()
+  for (const project of projects) {
+    for (const item of project.itens) {
+      const key = item.localidade_id ?? 'missing'
+      const group = groups.get(key) ?? { localidade_id: item.localidade_id, destino: item.destino, itens: [] }
+      group.itens.push(item)
+      groups.set(key, group)
+    }
+  }
+  return [...groups.values()].sort((a, b) => a.destino.localeCompare(b.destino, 'pt-BR'))
+}
+
 export default function App() {
   const [page, setPage] = useState<Page>('separation'), [mobileMenu, setMobileMenu] = useState(false), [projectId, setProjectId] = useState('')
   const [data, setData] = useState<{projects: Project[]; groups: Group[]; shipments: Shipment[]}>({projects: [], groups: [], shipments: []})
@@ -15,7 +29,7 @@ export default function App() {
   const controller = useRef<AbortController | null>(null)
   const reload = useCallback(async () => {
     controller.current?.abort(); const current = new AbortController(); controller.current = current; setLoading(true); setError('')
-    try { const [projects, groups, shipments] = await Promise.all([api.projects(current.signal), api.groups(current.signal), api.shipments(current.signal)]); if (!current.signal.aborted) setData({ projects, groups, shipments }) }
+    try { const [projects, shipments] = await Promise.all([api.projects(current.signal), api.shipments(current.signal)]); if (!current.signal.aborted) setData({ projects, groups: groupProjects(projects), shipments }) }
     catch (e) { if (!current.signal.aborted) setError(e instanceof Error ? e.message : 'Não foi possível atualizar os dados.') }
     finally { if (!current.signal.aborted) setLoading(false) }
   }, [])

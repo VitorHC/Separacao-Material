@@ -22,12 +22,13 @@ Abra **http://localhost:8080**. A documentação da API fica em http://localhost
 Os quatro status são branco (não separado), verde (separado), amarelo (outro local) e vermelho
 (sem estoque). A seleção de materiais respeita origem, destino, saldo e pendências de revisão.
 
-O antigo aplicativo Streamlit em `separador_materiais/` é mantido como referência e fornece
-os extratores. A nova interface usa exclusivamente a API/PostgreSQL para dados operacionais.
+A única interface do sistema é o frontend React. Os extratores de PDF/DOCX fazem parte do
+backend e os dados operacionais ficam exclusivamente na API/PostgreSQL; não há mais telas
+Streamlit nem persistência paralela em JSON.
 
 - [Frontend: desenvolvimento e testes](frontend/README.md)
 - [API e migração dos JSON existentes](backend/README.md)
 
-O processamento OCR baixa modelos no primeiro uso. A construção Docker habilita seus componentes
-por padrão. Para desenvolvimento sem OCR, use `INSTALL_OCR=false` no `.env`; tabelas em imagens
-exigem habilitá-lo novamente. PDF com texto nativo e DOCX não precisam dos modelos.
+O processamento OCR baixa modelos no primeiro uso e fica habilitado por padrão. Para uma imagem
+Docker menor quando só houver PDF com texto nativo e DOCX, use `INSTALL_OCR=false`. O Docling é
+um fallback opcional para PDFs complexos e pode ser ativado com `INSTALL_DOCLING=true`.

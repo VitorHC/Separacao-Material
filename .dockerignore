@@ -1,0 +1,10 @@
+.git
+.venv-api
+**/__pycache__
+**/.pytest_cache
+.env
+dados-legados
+frontend/node_modules
+frontend/dist
+frontend/test-results
+frontend/playwright-report

@@ -1,0 +1,461 @@
+{
+  "psc": "PSC 142",
+  "arquivo": "26_PSC_142_26_STARLINK cct BRE(SP4)-PAE(SCA) (4x100G) [PROTEGIDO]_Ativ_v1.0.pdf",
+  "paginas": 13,
+  "metodo": "texto",
+  "criado_em": "2026-06-23T14:22:32",
+  "atualizado_em": "2026-06-23T14:22:32",
+  "itens": [
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 1,
+      "item": "CHASSIS G42 COMPLETO (DC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 2,
+      "item": "CHM7",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 2,
+      "item": "OPS-HB",
+      "tipo": "",
+      "origem": "AF-E-189 (PADTEC)",
+      "responsavel": "Fornecedor",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 2,
+      "item": "Cabos Ópticos fannout (breakout) MPO [4x1]",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 1,
+      "item": "DIO p/ espelhamento",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 2,
+      "item": "QSFP56DD 400G DR4+",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 24,
+      "item": "cordões ópticos monomodo LC/PC-LC/APC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 4,
+      "item": "cordões ópticos monomodo LC/PC-LC/PC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRANJA JULIETA",
+      "quantidade": 1,
+      "item": "CHASSIS G42 COMPLETO (DC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRANJA JULIETA",
+      "quantidade": 2,
+      "item": "CHM7",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRANJA JULIETA",
+      "quantidade": 2,
+      "item": "QSFP56DD 400G LR4",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRANJA JULIETA",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/PC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "CURITIBA",
+      "quantidade": 1,
+      "item": "CHASSIS G42 COMPLETO (DC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "CURITIBA",
+      "quantidade": 2,
+      "item": "CHM7",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "CURITIBA",
+      "quantidade": 2,
+      "item": "QSFP56DD 400G LR4",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "CURITIBA",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/PC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GUARULHOS",
+      "quantidade": 1,
+      "item": "CHASSIS G42 COMPLETO (DC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GUARULHOS",
+      "quantidade": 2,
+      "item": "CHM7",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GUARULHOS",
+      "quantidade": 2,
+      "item": "QSFP56DD 400G LR4",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GUARULHOS",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/PC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "MARINGÁ",
+      "quantidade": 1,
+      "item": "CHASSIS G42 COMPLETO (DC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "MARINGÁ",
+      "quantidade": 2,
+      "item": "CHM7",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "MARINGÁ",
+      "quantidade": 2,
+      "item": "QSFP56DD 400G LR4",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "MARINGÁ",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/PC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 1,
+      "item": "CHASSIS G42 COMPLETO (DC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 2,
+      "item": "CHM7",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 1,
+      "item": "OPS-HB",
+      "tipo": "",
+      "origem": "AF-E-189 (PADTEC)",
+      "responsavel": "Fornecedor",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 3,
+      "item": "QSFP56DD 400G LR4",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 1,
+      "item": "TM2400G",
+      "tipo": "",
+      "origem": "AF-E-189 (PADTEC)",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/APC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "GRAVATAÍ",
+      "quantidade": 4,
+      "item": "cordões ópticos monomodo LC/PC-LC/PC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (NAJA)",
+      "quantidade": 1,
+      "item": "MUX/DEMUX 32CH (150GHz) - PADTEC",
+      "tipo": "",
+      "origem": "AF-E-189 (PADTEC)",
+      "responsavel": "Fornecedor",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (NAJA)",
+      "quantidade": 1,
+      "item": "EOA2-HA#1020",
+      "tipo": "",
+      "origem": "GRAVATAÍ",
+      "responsavel": "Regional",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (NAJA)",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/APC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (NAJA)",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/APC-LC/APC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 1,
+      "item": "MUX/DEMUX 32CH (150GHz) - PADTEC",
+      "tipo": "",
+      "origem": "AF-E-189 (PADTEC)",
+      "responsavel": "Fornecedor",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 1,
+      "item": "TM2400G",
+      "tipo": "",
+      "origem": "AF-E-189 (PADTEC)",
+      "responsavel": "Fornecedor",
+      "acao": "Nova Aquisição"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 1,
+      "item": "SFP ELÉTRICA",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 1,
+      "item": "DIO p/ espelhamento",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 1,
+      "item": "QSFP56DD 400G DR4+",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 1,
+      "item": "Cabo Óptico fannout (breakout) MPO [4x1]",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "PORTO ALEGRE (SCALA)",
+      "quantidade": 6,
+      "item": "cordões ópticos monomodo LC/PC-LC/APC (VERIFICAR TIPO C/ REGIONAL)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "Administrativo",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "ENGENHARIA",
+      "quantidade": 2,
+      "item": "TD100G (c/ 2 CFP2 e 2 QSFP28 1310nm) [#271 e #285]",
+      "tipo": "",
+      "origem": "PORTO ALEGRE (SCALA)",
+      "responsavel": "Regional",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "ENGENHARIA",
+      "quantidade": 4,
+      "item": "EOA2-HA [#764, #761, #767 e #771]",
+      "tipo": "",
+      "origem": "PORTO ALEGRE (NAJA)",
+      "responsavel": "Regional",
+      "acao": "Remanejar"
+    },
+    {
+      "separado": false,
+      "destino": "ENGENHARIA",
+      "quantidade": 2,
+      "item": "TD100G (c/ 2 CFP2 e 2 QSFP28 1310nm) [#281 e #586]",
+      "tipo": "",
+      "origem": "GRAVATAÍ",
+      "responsavel": "Regional",
+      "acao": "Remanejar"
+    }
+  ],
+  "envios": {}
+}

@@ -1,0 +1,151 @@
+{
+  "psc": "PSC 085",
+  "arquivo": "PSC 085-26 - Une Telecom (UNE) - ACG-BRE(SP4) - (700G 1000G) - upgrade.pdf",
+  "paginas": 6,
+  "metodo": "texto",
+  "criado_em": "2026-06-23T14:22:32",
+  "atualizado_em": "2026-06-23T14:22:32",
+  "itens": [
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 1,
+      "item": "QSFP56 DR4+ MPO",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 1,
+      "item": "cordão MPO (1-8 LC/PC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 1,
+      "item": "DIO",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "EQUINIX SP4",
+      "quantidade": 8,
+      "item": "cordões ópticos monofibra LC/PC- LC/PC (Verificar com a",
+      "tipo": "",
+      "origem": "regional) Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 1,
+      "item": "QSFP56 DR4+ MPO",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 1,
+      "item": "cordão MPO (1-8 LC/PC)",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 1,
+      "item": "DIO",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 1,
+      "item": "WL5e",
+      "tipo": "",
+      "origem": "SP4 (PS 2055)",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 4,
+      "item": "QSFP28 DR1",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "FURNAS",
+      "quantidade": 10,
+      "item": "cordões ópticos monofibra LC/PC- LC/PC (Verificar com a",
+      "tipo": "",
+      "origem": "regional) Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "BANDEIRANTES",
+      "quantidade": 1,
+      "item": "WL5e",
+      "tipo": "",
+      "origem": "BRO (PS 2055)",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "BANDEIRANTES",
+      "quantidade": 4,
+      "item": "QSFP28 DR1",
+      "tipo": "",
+      "origem": "Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "BANDEIRANTES",
+      "quantidade": 2,
+      "item": "cordões ópticos monofibra LC/PC- LC/PC (Verificar com a",
+      "tipo": "",
+      "origem": "regional) 4 metros Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    },
+    {
+      "separado": false,
+      "destino": "BANDEIRANTES",
+      "quantidade": 8,
+      "item": "cordões ópticos monofibra LC/PC- E2000/APC (Verificar com",
+      "tipo": "",
+      "origem": "a regional) Engenharia",
+      "responsavel": "ENGENHARIA",
+      "acao": "ADQUIRIR"
+    }
+  ],
+  "envios": {}
+}

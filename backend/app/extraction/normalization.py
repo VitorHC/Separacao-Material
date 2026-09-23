@@ -12,7 +12,7 @@ Responsabilidades:
       descartá-las silenciosamente.
     * Gerar um identificador estável por item (para persistir o progresso).
 
-Esta camada NÃO conhece Streamlit nem Docling — é puro pandas/Python e,
+Esta camada não conhece a interface nem o leitor de documentos — é puro pandas/Python e,
 portanto, fácil de testar.
 """
 

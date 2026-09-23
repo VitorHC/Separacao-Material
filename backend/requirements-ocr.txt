@@ -1,0 +1,3 @@
+# Leitores opcionais para tabelas em imagem; modelos baixados no primeiro uso.
+easyocr>=1.7,<2
+docling>=2,<3

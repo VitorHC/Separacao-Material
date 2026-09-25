@@ -12,6 +12,13 @@ docker compose up --build -d
 
 Abra **http://localhost:8080**. A documentação da API fica em http://localhost:8000/docs.
 
+Para testar por outro computador na mesma rede, configure `WEB_BIND_ADDRESS=0.0.0.0`
+no `.env`, execute `docker compose up -d` e abra `http://IP-DO-SERVIDOR:8080`.
+Permita a porta TCP 8080 no firewall para a rede privada local. Se já houver um
+PostgreSQL instalado na porta 5432, configure `POSTGRES_PORT=5433` no `.env`.
+O banco do Docker usa um volume próprio; os dados do PostgreSQL instalado não são
+importados automaticamente. Para parar sem apagar os dados, use `docker compose stop`.
+
 - **Projetos:** cadastro manual ou importação de PDF/DOCX/DOC com conferência antes de salvar.
 - **Separação → Por projeto:** materiais do PS/PSC selecionado, edição e cadastro de itens.
 - **Separação → Consolidado por localidade:** todos os projetos agrupados por destino, com PS/PSC

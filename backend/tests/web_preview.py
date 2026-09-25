@@ -1,12 +1,14 @@
 """Servidor descartável para testes E2E. Nunca usado pela aplicação real."""
 from sqlalchemy import create_engine
-from sqlalchemy.pool import StaticPool
+from tempfile import TemporaryDirectory
+from pathlib import Path
 from backend.app.db import Base, session_factory
 from backend.app.main import create_app
 from backend.app.schemas import ProjetoEntrada
 from backend.app.services import criar_projeto
 
-engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+_test_directory = TemporaryDirectory(prefix="separacao-e2e-")
+engine = create_engine(f"sqlite:///{Path(_test_directory.name) / 'preview.db'}", connect_args={"check_same_thread": False})
 Base.metadata.create_all(engine)
 factory = session_factory(engine)
 with factory.begin() as db:
